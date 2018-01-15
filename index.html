@@ -1,0 +1,79 @@
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    [v-cloak] {
+      display: none
+    }
+
+    [v-cloak]>* {
+      display: none
+    }
+
+    [v-cloak]::before {
+      content: "loading…"
+    }
+  </style>
+  <meta property="og:description" content="Realaika rahaprice seuranta" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/axios@0.17.1/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@2.5.13/dist/vue.min.js"></script>
+  <script src="./js/app.js" defer="defer"></script>
+  <link rel="stylesheet" type="text/css" href="styles/sweetass.css">
+  <title>Moneybin</title>
+</head>
+
+<body>
+  <div v-cloak id="app" class="content">
+    <div class="grid-that-has-grids">
+      <div v-cloak>
+        <div v-cloak class="radio-group">
+          <input type="radio" id="price" class="sort-input" name="sort" @change="sortCoins('price_usd')">
+          <label for="price">Price</label>
+          </input>
+          <input type="radio" id="1h" class="sort-input" name="sort" @change="sortCoins('percent_change_1h')">
+          <label for="1h">1h</label>
+          </input>
+          <input type="radio" id="24h" class="sort-input" name="sort" @change="sortCoins('percent_change_24h')">
+          <label for="24h">24h</label>
+          </input>
+          <input type="radio" id="7d" class="sort-input" name="sort" @change="sortCoins('percent_change_7d')">
+          <label for="7d">7d</label>
+          </input>
+          <label v-bind:class="togglebgprefix + (ascending ? 'selected': 'notselected')" class="ascsort" for="ascsort">Asc.</label>
+          <input type="checkbox" id="ascsort" v-model="ascending">
+        </div>
+      </div>
+
+      <div class="totally-sweet-textfield">
+        <input v-model="filterText" placeholder='btc,Eth,etc...'>
+      </div>
+
+      <div class="my-sweet-ass-coin-grid">
+        <div v-cloak v-if="coin.visible" class="box" v-bind:class="{ redBox: coin.allRed, greenBox: coin.allGreen }" v-for="(coin, index) in coins">
+          <div>{{ coin.symbol }}</div>
+          <div v-bind:class="">${{ coin.price_usd }}</div>
+          <div v-bind:class="changecolorprefix + coin.changecolor1h">
+            <span class="change-title">1h</span>
+            <span class="change-value"> {{ coin.percent_change_1h }}%</span>
+          </div>
+          <div v-bind:class="changecolorprefix + coin.changecolor24h">
+            <span class="change-title">24h</span>
+            <span class="change-value">{{ coin.percent_change_24h }}%</span>
+          </div>
+          <div v-bind:class="changecolorprefix + coin.changecolor7d">
+            <span class="change-title">7d</span>
+            <span class="change-value">{{ coin.percent_change_7d }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
